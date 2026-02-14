@@ -11,12 +11,7 @@ export const portfolioData: PortfolioData = {
     avatarSrc: "/images/profile-icon.png",
   },
   socialLinks: [
-    {
-      label: "X (Twitter)",
-      url: "https://twitter.com/ayukiofumiria",
-      type: "social",
-      priority: 1,
-    },
+    { label: "X (Twitter)", url: "https://twitter.com/ayukiofumiria", type: "social", priority: 1 },
     {
       label: "YouTube",
       url: "https://www.youtube.com/channel/UCJv7tvwyDMEOIujeu2_yDuQ",
@@ -96,7 +91,10 @@ export const portfolioData: PortfolioData = {
         "理学部物理学科への大学編入・大学院進学をサポートするサイト、ウミリア学院を創設。",
         "現在、大学学部課程に在籍し、電子物理工学を専攻。量子化学研究室に所属。",
         "現在は素粒子実験分野に関心を広げ、学びを継続中。",
-        "2026年度 似鳥国際奨学財団 IT人材奨学生。",
+        "プログラミング教室の立ち上げと運営（個人事業主として）。",
+        "オリジナル電子工作教材の開発。",
+        "電子工作・プログラミングのワークショップ開催。",
+        "作曲体験イベント開催。",
       ],
       tags: ["Education", "Startup", "Physics", "Academy"],
     },

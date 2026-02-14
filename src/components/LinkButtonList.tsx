@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { MouseEvent as ReactMouseEvent, useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import type { ExternalLink } from "@/types/portfolio";
 import { DecoratedCard } from "@/components/DecoratedCard";
 
@@ -12,17 +12,16 @@ type LinkButtonListProps = {
 
 export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps) {
   const mediaScrollerRef = useRef<HTMLDivElement | null>(null);
-  const isDraggingRef = useRef(false);
-  const movedRef = useRef(false);
-  const startXRef = useRef(0);
-  const startScrollRef = useRef(0);
   const pauseUntilRef = useRef(0);
 
   const sortedMediaLinks = useMemo(
     () => mediaLinks.slice().sort((a, b) => a.priority - b.priority),
     [mediaLinks],
   );
-  const loopedMediaLinks = useMemo(() => [...sortedMediaLinks, ...sortedMediaLinks], [sortedMediaLinks]);
+  const loopedMediaLinks = useMemo(
+    () => [...sortedMediaLinks, ...sortedMediaLinks],
+    [sortedMediaLinks],
+  );
 
   useEffect(() => {
     const scroller = mediaScrollerRef.current;
@@ -32,8 +31,7 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
     const autoSpeed = 0.4;
 
     const tick = () => {
-      const now = Date.now();
-      if (now >= pauseUntilRef.current && !isDraggingRef.current) {
+      if (Date.now() >= pauseUntilRef.current) {
         const half = scroller.scrollWidth / 2;
         scroller.scrollLeft += autoSpeed;
         if (scroller.scrollLeft >= half) {
@@ -43,68 +41,26 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
       animationId = window.requestAnimationFrame(tick);
     };
 
-    const onMouseMove = (event: globalThis.MouseEvent) => {
-      if (!isDraggingRef.current) return;
-      const dx = event.clientX - startXRef.current;
-      movedRef.current = movedRef.current || Math.abs(dx) > 4;
-      scroller.scrollLeft = startScrollRef.current - dx;
-    };
-
-    const stopDrag = () => {
-      if (!isDraggingRef.current) return;
-      isDraggingRef.current = false;
-      pauseUntilRef.current = Date.now() + 2400;
-      scroller.style.cursor = "grab";
-      scroller.style.userSelect = "";
-    };
-
-    const onMouseDown = (event: globalThis.MouseEvent) => {
-      if (event.button !== 0) return;
-      event.preventDefault();
-      isDraggingRef.current = true;
-      movedRef.current = false;
-      startXRef.current = event.clientX;
-      startScrollRef.current = scroller.scrollLeft;
-      pauseUntilRef.current = Date.now() + 2400;
-      scroller.style.cursor = "grabbing";
-      scroller.style.userSelect = "none";
-    };
-
     const onTouchStart = () => {
       pauseUntilRef.current = Date.now() + 2400;
     };
 
-    const onWheel = () => {
+    const onWheel = (event: WheelEvent) => {
+      event.preventDefault();
       pauseUntilRef.current = Date.now() + 2400;
+      scroller.scrollLeft += event.deltaY + event.deltaX;
     };
 
-    scroller.addEventListener("mousedown", onMouseDown);
     scroller.addEventListener("touchstart", onTouchStart, { passive: true });
-    scroller.addEventListener("wheel", onWheel, { passive: true });
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", stopDrag);
-    scroller.style.cursor = "grab";
+    scroller.addEventListener("wheel", onWheel, { passive: false });
 
     animationId = window.requestAnimationFrame(tick);
     return () => {
       window.cancelAnimationFrame(animationId);
-      scroller.removeEventListener("mousedown", onMouseDown);
       scroller.removeEventListener("touchstart", onTouchStart);
       scroller.removeEventListener("wheel", onWheel);
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", stopDrag);
-      scroller.style.cursor = "";
-      scroller.style.userSelect = "";
     };
   }, []);
-
-  const handleCardClickCapture = (event: ReactMouseEvent<HTMLAnchorElement>) => {
-    if (movedRef.current) {
-      event.preventDefault();
-      event.stopPropagation();
-      movedRef.current = false;
-    }
-  };
 
   return (
     <div className="sticky top-3 z-20 animate-fade-up">
@@ -135,33 +91,30 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
             ref={mediaScrollerRef}
             className="no-scrollbar flex gap-3 overflow-x-auto pb-1 touch-pan-y"
           >
-            {loopedMediaLinks
-              .map((link, index) => (
-                <a
-                  key={`${link.label}-${index}`}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClickCapture={handleCardClickCapture}
-                  onDragStart={(event) => event.preventDefault()}
-                  className="min-w-[240px] rounded-lg border border-[var(--line-soft)] bg-[var(--card)] p-2 text-sm text-[var(--text)] transition hover:border-[var(--accent)] hover:text-white"
-                >
-                  <div className="flex items-center gap-3">
-                    {link.previewImage ? (
-                      <Image
-                        src={link.previewImage}
-                        alt={`${link.label} preview`}
-                        width={44}
-                        height={44}
-                        className="h-11 w-11 rounded-md object-cover"
-                      />
-                    ) : (
-                      <div className="h-11 w-11 rounded-md bg-[var(--surface)]" />
-                    )}
-                    <span>{link.label}</span>
-                  </div>
-                </a>
-              ))}
+            {loopedMediaLinks.map((link, index) => (
+              <a
+                key={`${link.label}-${index}`}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="min-w-[240px] rounded-lg border border-[var(--line-soft)] bg-[var(--card)] p-2 text-sm text-[var(--text)] transition hover:border-[var(--accent)] hover:text-white"
+              >
+                <div className="flex items-center gap-3">
+                  {link.previewImage ? (
+                    <Image
+                      src={link.previewImage}
+                      alt={`${link.label} preview`}
+                      width={44}
+                      height={44}
+                      className="h-11 w-11 rounded-md object-cover"
+                    />
+                  ) : (
+                    <div className="h-11 w-11 rounded-md bg-[var(--surface)]" />
+                  )}
+                  <span>{link.label}</span>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </div>
