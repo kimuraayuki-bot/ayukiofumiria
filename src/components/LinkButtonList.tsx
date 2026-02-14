@@ -20,10 +20,13 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
     let animationId = 0;
     let pauseUntil = 0;
     const autoSpeed = 0.35;
+    let isPointerDown = false;
+    let startX = 0;
+    let startScrollLeft = 0;
 
     const tick = () => {
       const now = Date.now();
-      if (now >= pauseUntil) {
+      if (now >= pauseUntil && !isPointerDown) {
         const maxScroll = scroller.scrollWidth - scroller.clientWidth;
         if (maxScroll > 0) {
           scroller.scrollLeft += autoSpeed;
@@ -39,9 +42,39 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
       pauseUntil = Date.now() + 2500;
     };
 
+    const onPointerDown = (event: PointerEvent) => {
+      isPointerDown = true;
+      pauseAutoScroll();
+      startX = event.clientX;
+      startScrollLeft = scroller.scrollLeft;
+      scroller.setPointerCapture(event.pointerId);
+      scroller.style.cursor = "grabbing";
+      scroller.style.userSelect = "none";
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      if (!isPointerDown) return;
+      const dx = event.clientX - startX;
+      scroller.scrollLeft = startScrollLeft - dx;
+    };
+
+    const onPointerUp = (event: PointerEvent) => {
+      if (!isPointerDown) return;
+      isPointerDown = false;
+      pauseAutoScroll();
+      scroller.releasePointerCapture(event.pointerId);
+      scroller.style.cursor = "grab";
+      scroller.style.userSelect = "";
+    };
+
     scroller.addEventListener("pointerdown", pauseAutoScroll);
     scroller.addEventListener("touchstart", pauseAutoScroll, { passive: true });
     scroller.addEventListener("wheel", pauseAutoScroll, { passive: true });
+    scroller.addEventListener("pointerdown", onPointerDown);
+    scroller.addEventListener("pointermove", onPointerMove);
+    scroller.addEventListener("pointerup", onPointerUp);
+    scroller.addEventListener("pointercancel", onPointerUp);
+    scroller.style.cursor = "grab";
 
     animationId = window.requestAnimationFrame(tick);
     return () => {
@@ -49,6 +82,12 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
       scroller.removeEventListener("pointerdown", pauseAutoScroll);
       scroller.removeEventListener("touchstart", pauseAutoScroll);
       scroller.removeEventListener("wheel", pauseAutoScroll);
+      scroller.removeEventListener("pointerdown", onPointerDown);
+      scroller.removeEventListener("pointermove", onPointerMove);
+      scroller.removeEventListener("pointerup", onPointerUp);
+      scroller.removeEventListener("pointercancel", onPointerUp);
+      scroller.style.cursor = "";
+      scroller.style.userSelect = "";
     };
   }, []);
 
@@ -79,7 +118,7 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
           <p className="mb-2 text-[11px] tracking-[0.18em] text-[var(--muted)]">NEWS / MEDIA</p>
           <div
             ref={mediaScrollerRef}
-            className="flex gap-3 overflow-x-auto pb-1 [scrollbar-width:thin]"
+            className="flex gap-3 overflow-x-auto pb-1 [scrollbar-width:thin] touch-pan-y"
           >
             {mediaLinks
               .slice()
