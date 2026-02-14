@@ -116,7 +116,7 @@ export const portfolioData: PortfolioData = {
       accent: "Vector",
       titleJa: "Skills / Certifications",
       summaryJa:
-        "第三種電気主任技術者、第一種電気工事士などの関連資格を多数保有し、東大GCI修了・TOEIC855の実績を持つ。Webアプリ・システム開発から電子工作、組込み開発まで一貫して実装できる技術基盤。",
+        "第三種電気主任技術者、第一種電気工事士などの関連資格を多数保有し、東大GCI修了の実績を持つ。Webアプリ・システム開発から電子工作、組込み開発まで一貫して実装できる技術基盤。",
       bodyJa: [
         "技術・制作",
         "Webアプリ・サービス開発",
