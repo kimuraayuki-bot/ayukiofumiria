@@ -18,7 +18,11 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
   const startScrollRef = useRef(0);
   const pauseUntilRef = useRef(0);
 
-  const loopedMediaLinks = useMemo(() => [...mediaLinks, ...mediaLinks], [mediaLinks]);
+  const sortedMediaLinks = useMemo(
+    () => mediaLinks.slice().sort((a, b) => a.priority - b.priority),
+    [mediaLinks],
+  );
+  const loopedMediaLinks = useMemo(() => [...sortedMediaLinks, ...sortedMediaLinks], [sortedMediaLinks]);
 
   useEffect(() => {
     const scroller = mediaScrollerRef.current;
@@ -56,6 +60,7 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
 
     const onMouseDown = (event: globalThis.MouseEvent) => {
       if (event.button !== 0) return;
+      event.preventDefault();
       isDraggingRef.current = true;
       movedRef.current = false;
       startXRef.current = event.clientX;
@@ -131,8 +136,6 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
             className="no-scrollbar flex gap-3 overflow-x-auto pb-1 touch-pan-y"
           >
             {loopedMediaLinks
-              .slice()
-              .sort((a, b) => a.priority - b.priority)
               .map((link, index) => (
                 <a
                   key={`${link.label}-${index}`}
@@ -140,6 +143,7 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
                   target="_blank"
                   rel="noopener noreferrer"
                   onClickCapture={handleCardClickCapture}
+                  onDragStart={(event) => event.preventDefault()}
                   className="min-w-[240px] rounded-lg border border-[var(--line-soft)] bg-[var(--card)] p-2 text-sm text-[var(--text)] transition hover:border-[var(--accent)] hover:text-white"
                 >
                   <div className="flex items-center gap-3">

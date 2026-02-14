@@ -5,7 +5,7 @@ export type Profile = {
   handle: string;
   roleJa: string;
   missionJa: string;
-  currentStatus: string[];
+  currentStatus?: string[];
   academyUrl?: string;
   avatarSrc: string;
 };

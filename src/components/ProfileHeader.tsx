@@ -27,13 +27,15 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
       </div>
       <p className="mt-4 text-sm font-medium text-[var(--accent)]">{profile.roleJa}</p>
       <p className="mt-4 text-sm leading-7 text-[var(--text)] md:text-base">{profile.missionJa}</p>
-      <ul className="mt-3 space-y-1">
-        {profile.currentStatus.map((line) => (
-          <li key={line} className="text-xs leading-6 text-[var(--muted)]">
-            {line}
-          </li>
-        ))}
-      </ul>
+      {profile.currentStatus && profile.currentStatus.length > 0 ? (
+        <ul className="mt-3 space-y-1">
+          {profile.currentStatus.map((line) => (
+            <li key={line} className="text-xs leading-6 text-[var(--muted)]">
+              {line}
+            </li>
+          ))}
+        </ul>
+      ) : null}
       <div className="mt-5 flex flex-wrap gap-3">
         <a className="pill-link" href="#contact">
           Contact
