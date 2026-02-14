@@ -28,9 +28,9 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
       <p className="mt-4 text-sm font-medium text-[var(--accent)]">{profile.roleJa}</p>
       <p className="mt-4 text-sm leading-7 text-[var(--text)] md:text-base">{profile.missionJa}</p>
       {profile.currentStatus && profile.currentStatus.length > 0 ? (
-        <ul className="mt-3 space-y-1">
+        <ul className="mt-2 space-y-0">
           {profile.currentStatus.map((line) => (
-            <li key={line} className="text-xs leading-6 text-[var(--muted)]">
+            <li key={line} className="text-sm leading-7 text-[var(--text)] md:text-base">
               {line}
             </li>
           ))}
