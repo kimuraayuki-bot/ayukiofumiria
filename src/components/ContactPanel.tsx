@@ -11,12 +11,39 @@ export function ContactPanel({ contactEmail }: ContactPanelProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusText, setStatusText] = useState("");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const subject = encodeURIComponent(`[Portfolio Contact] ${name || "No Name"}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+    setIsSubmitting(true);
+    setStatusText("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          to: contactEmail,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("送信失敗");
+      }
+
+      setStatusText("送信しました。ご連絡ありがとうございます。");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch {
+      setStatusText("送信に失敗しました。時間をおいて再度お試しください。");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -54,10 +81,12 @@ export function ContactPanel({ contactEmail }: ContactPanelProps) {
           />
           <button
             type="submit"
-            className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-sm font-medium text-[var(--text)] transition hover:border-[var(--accent)] hover:text-white"
+            disabled={isSubmitting}
+            className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-sm font-medium text-[var(--text)] transition hover:border-[var(--accent)] hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
           >
-            メールを作成する
+            {isSubmitting ? "送信中..." : "送信する"}
           </button>
+          {statusText ? <p className="text-xs text-[var(--muted)]">{statusText}</p> : null}
         </form>
       </section>
     </DecoratedCard>
