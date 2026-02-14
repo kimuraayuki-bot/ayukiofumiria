@@ -6,6 +6,7 @@ export const portfolioData: PortfolioData = {
     handle: "@ayukiofumiria",
     roleJa: "Engineering / Robotics / Education / Music",
     missionJa: "宇宙を愛する探究心を軸に、技術と創作を横断して価値を届ける。",
+    currentStatus: ["2026年度 似鳥国際奨学財団 IT人材奨学生"],
     academyUrl: "https://umiria-academy.com",
     avatarSrc: "/images/profile-icon.png",
   },
