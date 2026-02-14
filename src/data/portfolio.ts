@@ -44,30 +44,32 @@ export const portfolioData: PortfolioData = {
       url: "https://www.kobe-np.co.jp/news/hanshin/202105/0014335987.shtml",
       type: "article",
       priority: 1,
+      previewImage:
+        "https://prd.storage.lit.link/images/creators/7421acde-d2a8-4cf5-a04b-0002d3c702a9/profile_links/buttons/43aa99b5-af04-4f0e-887d-89d237997a47.png",
     },
     {
       label: "神戸新聞（2022）",
       url: "https://www.kobe-np.co.jp/news/hanshin/202212/0015922379.shtml",
       type: "article",
       priority: 2,
+      previewImage:
+        "https://prd.storage.lit.link/images/creators/7421acde-d2a8-4cf5-a04b-0002d3c702a9/profile_links/buttons/d863ed2b-9632-422a-b631-d59c71479168.png",
     },
     {
-      label: "和歌山大学（掲載）",
-      url: "https://x.gd/FYkOe",
-      type: "article",
-      priority: 3,
-    },
-    {
-      label: "News / Kiyo Keysite",
+      label: "Key Site（2025）",
       url: "https://kiyo-keysite.com/news/w2O3Oich",
       type: "article",
-      priority: 4,
+      priority: 3,
+      previewImage:
+        "https://prd.storage.lit.link/images/creators/7421acde-d2a8-4cf5-a04b-0002d3c702a9/profile_links/buttons/e35aeb07-1d20-4514-9619-5b1912d93b11.png",
     },
     {
-      label: "Facebook掲載投稿",
+      label: "和歌山大学 広報（2026）",
       url: "https://www.facebook.com/story.php?story_fbid=1528433572620888&id=100063627788637&mibextid=wwXIfr&rdid=lJWZGDAPaxzCYMMj#",
       type: "article",
-      priority: 5,
+      priority: 4,
+      previewImage:
+        "https://prd.storage.lit.link/images/creators/7421acde-d2a8-4cf5-a04b-0002d3c702a9/profile_links/buttons/3964d51f-248f-462f-96e6-3c195cd2f4a2.png",
     },
   ],
   sections: [

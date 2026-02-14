@@ -15,6 +15,7 @@ export type ExternalLink = {
   url: string;
   type: ExternalLinkType;
   priority: number;
+  previewImage?: string;
 };
 
 export type Section = {
