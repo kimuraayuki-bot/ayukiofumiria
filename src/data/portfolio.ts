@@ -12,7 +12,7 @@ export const portfolioData: PortfolioData = {
       "Driven by a love for the universe, I bridge engineering and creativity to solve complex problems with a physics mindset.",
     avatarSrc: "/images/profile-icon.png",
   },
-  quickLinks: [
+  socialLinks: [
     {
       label: "X (Twitter)",
       url: "https://twitter.com/ayukiofumiria",
@@ -32,22 +32,42 @@ export const portfolioData: PortfolioData = {
       priority: 3,
     },
     {
-      label: "Kobe Shimbun (2021)",
-      url: "https://www.kobe-np.co.jp/news/hanshin/202105/0014335987.shtml",
-      type: "article",
+      label: "Facebook Story",
+      url: "https://www.facebook.com/story.php?story_fbid=1528433572620888&id=100063627788637&mibextid=wwXIfr&rdid=lJWZGDAPaxzCYMMj#",
+      type: "social",
       priority: 4,
     },
+  ],
+  mediaLinks: [
     {
-      label: "Kobe Shimbun (2022)",
+      label: "神戸新聞（2021）",
+      url: "https://www.kobe-np.co.jp/news/hanshin/202105/0014335987.shtml",
+      type: "article",
+      priority: 1,
+    },
+    {
+      label: "神戸新聞（2022）",
       url: "https://www.kobe-np.co.jp/news/hanshin/202212/0015922379.shtml",
       type: "article",
-      priority: 5,
+      priority: 2,
+    },
+    {
+      label: "和歌山大学（掲載）",
+      url: "https://x.gd/FYkOe",
+      type: "article",
+      priority: 3,
     },
     {
       label: "News / Kiyo Keysite",
       url: "https://kiyo-keysite.com/news/w2O3Oich",
       type: "article",
-      priority: 6,
+      priority: 4,
+    },
+    {
+      label: "Facebook掲載投稿",
+      url: "https://www.facebook.com/story.php?story_fbid=1528433572620888&id=100063627788637&mibextid=wwXIfr&rdid=lJWZGDAPaxzCYMMj#",
+      type: "article",
+      priority: 5,
     },
   ],
   sections: [
@@ -173,27 +193,6 @@ export const portfolioData: PortfolioData = {
       caption: "宇宙工学への関心を形にしたプロトタイプ。",
     },
   ],
-  contacts: [
-    {
-      type: "email",
-      label: "Mail",
-      href: "mailto:ayukiofumiria@gmail.com",
-    },
-    {
-      type: "x",
-      label: "X",
-      href: "https://twitter.com/ayukiofumiria",
-    },
-    {
-      type: "youtube",
-      label: "YouTube",
-      href: "https://www.youtube.com/channel/UCJv7tvwyDMEOIujeu2_yDuQ",
-    },
-    {
-      type: "facebook",
-      label: "Facebook",
-      href: "https://www.facebook.com/share/p/1asL3s6c4A/?mibextid=wwXIfr",
-    },
-  ],
+  contactEmail: "ayukiofumiria@gmail.com",
   updatedAt: "2026-02-14",
 };

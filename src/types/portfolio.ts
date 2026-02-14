@@ -44,9 +44,10 @@ export type ContactMethod = {
 
 export type PortfolioData = {
   profile: Profile;
-  quickLinks: ExternalLink[];
+  socialLinks: ExternalLink[];
+  mediaLinks: ExternalLink[];
   sections: Section[];
   gallery: GalleryItem[];
-  contacts: ContactMethod[];
+  contactEmail: string;
   updatedAt: string;
 };

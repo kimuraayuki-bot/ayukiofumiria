@@ -13,7 +13,7 @@ export default function Home() {
     alternateName: portfolioData.profile.handle,
     description: portfolioData.profile.missionJa,
     url: "https://lit.link/AyukiofUmiria",
-    sameAs: portfolioData.quickLinks.map((link) => link.url),
+    sameAs: [...portfolioData.socialLinks, ...portfolioData.mediaLinks].map((link) => link.url),
     knowsAbout: ["Robotics", "Web Development", "Education", "Music", "Physics"],
     hasCreativeWork: portfolioData.gallery.map((item) => ({
       "@type": "CreativeWork",
@@ -29,7 +29,10 @@ export default function Home() {
       <div className="mx-auto w-full max-w-3xl px-4 pb-16 pt-10 md:px-6 md:pt-14">
         <ProfileHeader profile={portfolioData.profile} />
         <div className="mt-8">
-          <LinkButtonList links={portfolioData.quickLinks} />
+          <LinkButtonList
+            socialLinks={portfolioData.socialLinks}
+            mediaLinks={portfolioData.mediaLinks}
+          />
         </div>
 
         <section id="works" className="mt-8 space-y-4">
@@ -45,7 +48,7 @@ export default function Home() {
         </section>
 
         <div className="mt-8">
-          <ContactPanel contacts={portfolioData.contacts} />
+          <ContactPanel contactEmail={portfolioData.contactEmail} />
         </div>
 
         <footer className="mt-10 border-t border-[var(--line-soft)] pt-6 text-xs text-[var(--muted)]">

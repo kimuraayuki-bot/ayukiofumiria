@@ -1,34 +1,66 @@
+"use client";
+
+import { FormEvent, useState } from "react";
 import { DecoratedCard } from "@/components/DecoratedCard";
-import type { ContactMethod } from "@/types/portfolio";
 
 type ContactPanelProps = {
-  contacts: ContactMethod[];
+  contactEmail: string;
 };
 
-export function ContactPanel({ contacts }: ContactPanelProps) {
+export function ContactPanel({ contactEmail }: ContactPanelProps) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const subject = encodeURIComponent(`[Portfolio Contact] ${name || "No Name"}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    );
+    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+  };
+
   return (
     <DecoratedCard className="animate-fade-up">
       <section id="contact">
         <p className="text-[11px] tracking-[0.22em] text-[var(--accent)]">CHANNEL</p>
-        <h2 className="mt-2 text-xl font-semibold text-white">Contact</h2>
+        <h2 className="mt-2 text-xl font-semibold text-white">Contact Form</h2>
         <p className="mt-2 text-sm leading-7 text-[var(--text)]">
-          お問い合わせは以下のチャネルからご連絡ください。Please reach out via one of the channels below.
+          SNS導線は使わず、メールフォームのみで受付します。
         </p>
-        <ul className="mt-4 grid gap-2">
-          {contacts.map((contact) => (
-            <li key={contact.label}>
-              <a
-                href={contact.href}
-                target={contact.type === "email" ? undefined : "_blank"}
-                rel={contact.type === "email" ? undefined : "noopener noreferrer"}
-                className="flex items-center justify-between rounded-lg border border-[var(--line-soft)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text)] transition hover:border-[var(--accent)]"
-              >
-                <span>{contact.label}</span>
-                <span className="text-xs text-[var(--muted)]">{contact.type}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <form onSubmit={handleSubmit} className="mt-4 grid gap-3">
+          <input
+            type="text"
+            required
+            placeholder="お名前 / Name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            className="rounded-lg border border-[var(--line-soft)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text)] outline-none focus:border-[var(--accent)]"
+          />
+          <input
+            type="email"
+            required
+            placeholder="メールアドレス / Email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            className="rounded-lg border border-[var(--line-soft)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text)] outline-none focus:border-[var(--accent)]"
+          />
+          <textarea
+            required
+            rows={5}
+            placeholder="お問い合わせ内容 / Message"
+            value={message}
+            onChange={(event) => setMessage(event.target.value)}
+            className="rounded-lg border border-[var(--line-soft)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text)] outline-none focus:border-[var(--accent)]"
+          />
+          <button
+            type="submit"
+            className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-sm font-medium text-[var(--text)] transition hover:border-[var(--accent)] hover:text-white"
+          >
+            メールを作成する
+          </button>
+        </form>
       </section>
     </DecoratedCard>
   );
