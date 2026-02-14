@@ -7,15 +7,26 @@ import { YoutubeEmbedSection } from "@/components/YoutubeEmbedSection";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Home() {
+  const siteUrl = "https://ayukiofumiria.vercel.app/";
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: portfolioData.profile.name,
-    alternateName: portfolioData.profile.handle,
-    description: portfolioData.profile.missionJa,
-    url: "https://lit.link/AyukiofUmiria",
-    sameAs: [...portfolioData.socialLinks, ...portfolioData.mediaLinks].map((link) => link.url),
-    knowsAbout: ["Robotics", "Web Development", "Education", "Music", "Physics"],
+    "@graph": [
+      {
+        "@type": "WebSite",
+        name: "Ayuki of Umiria",
+        url: siteUrl,
+        inLanguage: "ja",
+      },
+      {
+        "@type": "Person",
+        name: portfolioData.profile.name,
+        alternateName: portfolioData.profile.handle,
+        description: portfolioData.profile.missionJa,
+        url: siteUrl,
+        sameAs: [...portfolioData.socialLinks, ...portfolioData.mediaLinks].map((link) => link.url),
+        knowsAbout: ["Robotics", "Web Development", "Education", "Music", "Physics"],
+      },
+    ],
   };
 
   return (
@@ -24,39 +35,33 @@ export default function Home() {
       <div className="mx-auto w-full max-w-3xl px-4 pb-16 pt-10 md:px-6 md:pt-14">
         <ProfileHeader profile={portfolioData.profile} />
 
-        <div className="mt-8">
-          <LinkButtonList
-            socialLinks={portfolioData.socialLinks}
-            mediaLinks={portfolioData.mediaLinks}
-          />
-        </div>
+        <section aria-label="Social links" className="mt-8">
+          <LinkButtonList socialLinks={portfolioData.socialLinks} mediaLinks={portfolioData.mediaLinks} />
+        </section>
 
-        <section className="mt-8 space-y-4">
+        <section aria-label="Core sections" className="mt-8 space-y-4">
           {portfolioData.sections.map((section) => (
             <SectionCard key={section.id} section={section} />
           ))}
         </section>
 
-        <section id="works-gallery" className="mt-8 space-y-4" aria-label="Visual works">
+        <section id="works-gallery" className="mt-8 space-y-4" aria-label="Visual works and videos">
           {portfolioData.gallery.map((item) => (
             <GalleryCard key={item.title} item={item} />
           ))}
           <YoutubeEmbedSection items={portfolioData.youtubeEmbeds} />
         </section>
 
-        <div className="mt-8">
+        <section className="mt-8" aria-label="Contact form">
           <ContactPanel contactEmail={portfolioData.contactEmail} />
-        </div>
+        </section>
 
         <footer className="mt-10 border-t border-[var(--line-soft)] pt-6 text-xs text-[var(--muted)]">
           <p>© {new Date().getFullYear()} Ayuki of Umiria</p>
           <p className="mt-1">最終更新: {portfolioData.updatedAt}</p>
         </footer>
       </div>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </main>
   );
 }
