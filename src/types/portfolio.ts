@@ -4,9 +4,9 @@ export type Profile = {
   name: string;
   handle: string;
   roleJa: string;
-  roleEn: string;
   missionJa: string;
-  missionEn: string;
+  currentStatus: string[];
+  academyUrl?: string;
   avatarSrc: string;
 };
 
@@ -22,11 +22,8 @@ export type Section = {
   id: string;
   accent: string;
   titleJa: string;
-  titleEn: string;
   summaryJa: string;
-  summaryEn: string;
   bodyJa: string[];
-  bodyEn: string[];
   tags: string[];
   initiallyCollapsed?: boolean;
 };
@@ -37,10 +34,10 @@ export type GalleryItem = {
   caption: string;
 };
 
-export type ContactMethod = {
-  type: "email" | "x" | "youtube" | "facebook";
-  label: string;
-  href: string;
+export type YoutubeEmbed = {
+  id: string;
+  title: string;
+  videoId: string;
 };
 
 export type PortfolioData = {
@@ -49,6 +46,7 @@ export type PortfolioData = {
   mediaLinks: ExternalLink[];
   sections: Section[];
   gallery: GalleryItem[];
+  youtubeEmbeds: YoutubeEmbed[];
   contactEmail: string;
   updatedAt: string;
 };

@@ -73,6 +73,14 @@ h3 {
   animation: fade-up 520ms ease both;
 }
 
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;

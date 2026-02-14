@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { MouseEvent as ReactMouseEvent, useEffect, useMemo, useRef } from "react";
 import type { ExternalLink } from "@/types/portfolio";
 import { DecoratedCard } from "@/components/DecoratedCard";
 
@@ -12,84 +12,94 @@ type LinkButtonListProps = {
 
 export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps) {
   const mediaScrollerRef = useRef<HTMLDivElement | null>(null);
+  const isDraggingRef = useRef(false);
+  const movedRef = useRef(false);
+  const startXRef = useRef(0);
+  const startScrollRef = useRef(0);
+  const pauseUntilRef = useRef(0);
+
+  const loopedMediaLinks = useMemo(() => [...mediaLinks, ...mediaLinks], [mediaLinks]);
 
   useEffect(() => {
     const scroller = mediaScrollerRef.current;
     if (!scroller) return;
 
     let animationId = 0;
-    let pauseUntil = 0;
-    const autoSpeed = 0.35;
-    let isPointerDown = false;
-    let startX = 0;
-    let startScrollLeft = 0;
+    const autoSpeed = 0.4;
 
     const tick = () => {
       const now = Date.now();
-      if (now >= pauseUntil && !isPointerDown) {
-        const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-        if (maxScroll > 0) {
-          scroller.scrollLeft += autoSpeed;
-          if (scroller.scrollLeft >= maxScroll - 1) {
-            scroller.scrollLeft = 0;
-          }
+      if (now >= pauseUntilRef.current && !isDraggingRef.current) {
+        const half = scroller.scrollWidth / 2;
+        scroller.scrollLeft += autoSpeed;
+        if (scroller.scrollLeft >= half) {
+          scroller.scrollLeft -= half;
         }
       }
       animationId = window.requestAnimationFrame(tick);
     };
 
-    const pauseAutoScroll = () => {
-      pauseUntil = Date.now() + 2500;
+    const onMouseMove = (event: globalThis.MouseEvent) => {
+      if (!isDraggingRef.current) return;
+      const dx = event.clientX - startXRef.current;
+      movedRef.current = movedRef.current || Math.abs(dx) > 4;
+      scroller.scrollLeft = startScrollRef.current - dx;
     };
 
-    const onPointerDown = (event: PointerEvent) => {
-      isPointerDown = true;
-      pauseAutoScroll();
-      startX = event.clientX;
-      startScrollLeft = scroller.scrollLeft;
-      scroller.setPointerCapture(event.pointerId);
-      scroller.style.cursor = "grabbing";
-      scroller.style.userSelect = "none";
-    };
-
-    const onPointerMove = (event: PointerEvent) => {
-      if (!isPointerDown) return;
-      const dx = event.clientX - startX;
-      scroller.scrollLeft = startScrollLeft - dx;
-    };
-
-    const onPointerUp = (event: PointerEvent) => {
-      if (!isPointerDown) return;
-      isPointerDown = false;
-      pauseAutoScroll();
-      scroller.releasePointerCapture(event.pointerId);
+    const stopDrag = () => {
+      if (!isDraggingRef.current) return;
+      isDraggingRef.current = false;
+      pauseUntilRef.current = Date.now() + 2400;
       scroller.style.cursor = "grab";
       scroller.style.userSelect = "";
     };
 
-    scroller.addEventListener("pointerdown", pauseAutoScroll);
-    scroller.addEventListener("touchstart", pauseAutoScroll, { passive: true });
-    scroller.addEventListener("wheel", pauseAutoScroll, { passive: true });
-    scroller.addEventListener("pointerdown", onPointerDown);
-    scroller.addEventListener("pointermove", onPointerMove);
-    scroller.addEventListener("pointerup", onPointerUp);
-    scroller.addEventListener("pointercancel", onPointerUp);
+    const onMouseDown = (event: globalThis.MouseEvent) => {
+      if (event.button !== 0) return;
+      isDraggingRef.current = true;
+      movedRef.current = false;
+      startXRef.current = event.clientX;
+      startScrollRef.current = scroller.scrollLeft;
+      pauseUntilRef.current = Date.now() + 2400;
+      scroller.style.cursor = "grabbing";
+      scroller.style.userSelect = "none";
+    };
+
+    const onTouchStart = () => {
+      pauseUntilRef.current = Date.now() + 2400;
+    };
+
+    const onWheel = () => {
+      pauseUntilRef.current = Date.now() + 2400;
+    };
+
+    scroller.addEventListener("mousedown", onMouseDown);
+    scroller.addEventListener("touchstart", onTouchStart, { passive: true });
+    scroller.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", stopDrag);
     scroller.style.cursor = "grab";
 
     animationId = window.requestAnimationFrame(tick);
     return () => {
       window.cancelAnimationFrame(animationId);
-      scroller.removeEventListener("pointerdown", pauseAutoScroll);
-      scroller.removeEventListener("touchstart", pauseAutoScroll);
-      scroller.removeEventListener("wheel", pauseAutoScroll);
-      scroller.removeEventListener("pointerdown", onPointerDown);
-      scroller.removeEventListener("pointermove", onPointerMove);
-      scroller.removeEventListener("pointerup", onPointerUp);
-      scroller.removeEventListener("pointercancel", onPointerUp);
+      scroller.removeEventListener("mousedown", onMouseDown);
+      scroller.removeEventListener("touchstart", onTouchStart);
+      scroller.removeEventListener("wheel", onWheel);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", stopDrag);
       scroller.style.cursor = "";
       scroller.style.userSelect = "";
     };
   }, []);
+
+  const handleCardClickCapture = (event: ReactMouseEvent<HTMLAnchorElement>) => {
+    if (movedRef.current) {
+      event.preventDefault();
+      event.stopPropagation();
+      movedRef.current = false;
+    }
+  };
 
   return (
     <div className="sticky top-3 z-20 animate-fade-up">
@@ -118,30 +128,31 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
           <p className="mb-2 text-[11px] tracking-[0.18em] text-[var(--muted)]">NEWS / MEDIA</p>
           <div
             ref={mediaScrollerRef}
-            className="flex gap-3 overflow-x-auto pb-1 [scrollbar-width:thin] touch-pan-y"
+            className="no-scrollbar flex gap-3 overflow-x-auto pb-1 touch-pan-y"
           >
-            {mediaLinks
+            {loopedMediaLinks
               .slice()
               .sort((a, b) => a.priority - b.priority)
-              .map((link) => (
+              .map((link, index) => (
                 <a
-                  key={link.label}
+                  key={`${link.label}-${index}`}
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="min-w-[230px] rounded-lg border border-[var(--line-soft)] bg-[var(--card)] p-2 text-sm text-[var(--text)] transition hover:border-[var(--accent)] hover:text-white"
+                  onClickCapture={handleCardClickCapture}
+                  className="min-w-[240px] rounded-lg border border-[var(--line-soft)] bg-[var(--card)] p-2 text-sm text-[var(--text)] transition hover:border-[var(--accent)] hover:text-white"
                 >
                   <div className="flex items-center gap-3">
                     {link.previewImage ? (
                       <Image
                         src={link.previewImage}
                         alt={`${link.label} preview`}
-                        width={40}
-                        height={40}
-                        className="h-10 w-10 rounded-md object-cover"
+                        width={44}
+                        height={44}
+                        className="h-11 w-11 rounded-md object-cover"
                       />
                     ) : (
-                      <div className="h-10 w-10 rounded-md bg-[var(--surface)]" />
+                      <div className="h-11 w-11 rounded-md bg-[var(--surface)]" />
                     )}
                     <span>{link.label}</span>
                   </div>
