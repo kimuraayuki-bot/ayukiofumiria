@@ -24,7 +24,7 @@ export function SectionCard({ section }: SectionCardProps) {
           ))}
         </div>
 
-        <details className="mt-4" open={!section.initiallyCollapsed}>
+        <details className="mt-4">
           <summary className="cursor-pointer text-sm font-medium text-[var(--accent)]">詳細を見る</summary>
           <div className="mt-3 space-y-2">
             {section.bodyJa.map((line) => (
