@@ -66,6 +66,11 @@ export const metadata: Metadata = {
     creator: "@ayukiofumiria",
     images: ["/images/ogp-space.svg"],
   },
+  icons: {
+    icon: "/fabicon.png",
+    shortcut: "/fabicon.png",
+    apple: "/fabicon.png",
+  },
 };
 
 export default function RootLayout({
