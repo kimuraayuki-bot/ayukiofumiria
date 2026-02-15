@@ -18,11 +18,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid_request" }, { status: 400 });
   }
 
-  const smtpHost = process.env.SMTP_HOST || "smtp.muumuu-mail.com";
+  const smtpHost = process.env.SMTP_HOST;
   const smtpPort = Number(process.env.SMTP_PORT || "587");
-  const smtpUser = process.env.SMTP_USER || "orbit@ayukiofumiria.com";
+  const smtpUser = process.env.SMTP_USER;
   const smtpPass = process.env.SMTP_PASS;
-  const toEmail = process.env.CONTACT_TO_EMAIL || "orbit@ayukiofumiria.com";
+  const toEmail = process.env.CONTACT_TO_EMAIL || body.to;
 
   if (!smtpHost || !smtpUser || !smtpPass || !toEmail) {
     const missing = [

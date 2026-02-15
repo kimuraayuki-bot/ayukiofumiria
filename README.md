@@ -20,26 +20,14 @@ Open `http://localhost:3000`.
 
 ## Contact Mail Settings
 
-The contact form sends mail via Muumuu Mail by default.
-
-- SMTP host: `smtp.muumuu-mail.com`
-- SMTP port: `587` (STARTTLS)
-- SMTP user: `orbit@ayukiofumiria.com`
-- To address: `orbit@ayukiofumiria.com`
-
-Set at least this environment variable before sending mail:
+Set environment variables for your SMTP provider:
 
 ```bash
-SMTP_PASS=your_mail_password
-```
-
-Optional overrides:
-
-```bash
-SMTP_HOST=smtp.muumuu-mail.com
+SMTP_HOST=<your-smtp-host>
 SMTP_PORT=587
-SMTP_USER=orbit@ayukiofumiria.com
-CONTACT_TO_EMAIL=orbit@ayukiofumiria.com
+SMTP_USER=<your-smtp-user>
+SMTP_PASS=<your-smtp-password>
+CONTACT_TO_EMAIL=<destination-email>
 ```
 
 ## Project Structure
