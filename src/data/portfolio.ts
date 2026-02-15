@@ -4,7 +4,7 @@ export const portfolioData: PortfolioData = {
   profile: {
     name: "Ayuki of Umiria",
     handle: "@ayukiofumiria",
-    roleJa: "Engineering / Robotics / Education / Music",
+    roleJa: "Engineering / Education / Music",
     missionJa: "技術と創作を横断し、事業を形にするエンジニア。",
     currentStatus: ["2026年度 似鳥国際奨学財団 IT人材奨学生"],
     academyUrl: "https://umiria-academy.com",
