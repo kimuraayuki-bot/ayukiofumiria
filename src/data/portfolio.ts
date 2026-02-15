@@ -162,6 +162,12 @@ export const portfolioData: PortfolioData = {
   ],
   gallery: [
     {
+      imageSrc: "/images/arumiran-2025.jpg",
+      title: "あるみらん｜オリジナルシリーズ公式サイト",
+      caption: "2025年に制作したWebサイト。",
+      linkUrl: "https://arumiran.com",
+    },
+    {
       imageSrc: "/images/robocup-asia.jpg",
       title: "ロボカップジュニア アジアパシフィック 2021",
       caption: "Simulation部門での成果。",

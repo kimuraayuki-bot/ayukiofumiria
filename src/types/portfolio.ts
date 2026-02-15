@@ -32,6 +32,7 @@ export type GalleryItem = {
   imageSrc: string;
   title: string;
   caption: string;
+  linkUrl?: string;
 };
 
 export type YoutubeEmbed = {
