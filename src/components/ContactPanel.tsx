@@ -21,6 +21,12 @@ export function ContactPanel({ contactEmail }: ContactPanelProps) {
     if (errorCode === "invalid_request") {
       return "入力内容を確認してください。";
     }
+    if (errorCode === "send_failed_auth") {
+      return "メール認証に失敗しました。SMTP_USER / SMTP_PASS を確認してください。";
+    }
+    if (errorCode === "send_failed_connection") {
+      return "メールサーバーへ接続できませんでした。SMTP_HOST / SMTP_PORT を確認してください。";
+    }
     return "送信に失敗しました。時間をおいて再度お試しください。";
   };
 

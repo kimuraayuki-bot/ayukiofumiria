@@ -8,6 +8,27 @@ type ContactPayload = {
   to?: string;
 };
 
+type MailError = {
+  code?: string;
+  responseCode?: number;
+  command?: string;
+};
+
+const classifyMailError = (error: MailError) => {
+  if (error.code === "EAUTH" || error.responseCode === 535 || error.responseCode === 534) {
+    return "send_failed_auth";
+  }
+  if (
+    error.code === "ECONNECTION" ||
+    error.code === "ETIMEDOUT" ||
+    error.code === "ESOCKET" ||
+    error.code === "ECONNREFUSED"
+  ) {
+    return "send_failed_connection";
+  }
+  return "send_failed";
+};
+
 export async function POST(request: Request) {
   const body = (await request.json()) as ContactPayload;
   const name = body.name?.trim();
@@ -34,28 +55,48 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "mail_not_configured", missing }, { status: 500 });
   }
 
-  try {
-    const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpPort === 465,
-      auth: {
-        user: smtpUser,
-        pass: smtpPass,
-      },
-    });
+  const portCandidates = Array.from(new Set([smtpPort, smtpPort === 587 ? 465 : 587]));
+  let lastError: MailError | null = null;
 
-    await transporter.sendMail({
-      from: `"Portfolio Contact" <${smtpUser}>`,
-      to: toEmail,
-      replyTo: email,
-      subject: `[Portfolio Contact] ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-    });
+  for (const port of portCandidates) {
+    try {
+      const transporter = nodemailer.createTransport({
+        host: smtpHost,
+        port,
+        secure: port === 465,
+        auth: {
+          user: smtpUser,
+          pass: smtpPass,
+        },
+      });
 
-    return NextResponse.json({ ok: true });
-  } catch (error) {
-    console.error("[/api/contact] send failed", error);
-    return NextResponse.json({ error: "send_failed" }, { status: 500 });
+      await transporter.sendMail({
+        from: `"Portfolio Contact" <${smtpUser}>`,
+        to: toEmail,
+        replyTo: email,
+        subject: `[Portfolio Contact] ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+      });
+
+      return NextResponse.json({ ok: true, port });
+    } catch (error) {
+      const mailError = error as MailError;
+      lastError = mailError;
+      console.error("[/api/contact] send failed", {
+        port,
+        code: mailError.code,
+        responseCode: mailError.responseCode,
+        command: mailError.command,
+      });
+    }
   }
+
+  const errorCode = classifyMailError(lastError ?? {});
+  return NextResponse.json(
+    {
+      error: errorCode,
+      attemptedPorts: portCandidates,
+    },
+    { status: 500 },
+  );
 }
