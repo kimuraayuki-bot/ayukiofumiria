@@ -18,14 +18,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid_request" }, { status: 400 });
   }
 
-  const smtpHost = process.env.SMTP_HOST;
+  const smtpHost = process.env.SMTP_HOST || "smtp.muumuu-mail.com";
   const smtpPort = Number(process.env.SMTP_PORT || "587");
-  const smtpUser = process.env.SMTP_USER;
+  const smtpUser = process.env.SMTP_USER || "orbit@ayukiofumiria.com";
   const smtpPass = process.env.SMTP_PASS;
-  const toEmail = process.env.CONTACT_TO_EMAIL || body.to;
+  const toEmail = process.env.CONTACT_TO_EMAIL || "orbit@ayukiofumiria.com";
 
   if (!smtpHost || !smtpUser || !smtpPass || !toEmail) {
-    return NextResponse.json({ error: "mail_not_configured" }, { status: 500 });
+    const missing = [
+      !smtpHost ? "SMTP_HOST" : null,
+      !smtpUser ? "SMTP_USER" : null,
+      !smtpPass ? "SMTP_PASS" : null,
+      !toEmail ? "CONTACT_TO_EMAIL" : null,
+    ].filter(Boolean);
+    return NextResponse.json({ error: "mail_not_configured", missing }, { status: 500 });
   }
 
   try {
@@ -48,7 +54,8 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (error) {
+    console.error("[/api/contact] send failed", error);
     return NextResponse.json({ error: "send_failed" }, { status: 500 });
   }
 }

@@ -14,6 +14,16 @@ export function ContactPanel({ contactEmail }: ContactPanelProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusText, setStatusText] = useState("");
 
+  const getErrorMessage = (errorCode: string) => {
+    if (errorCode === "mail_not_configured") {
+      return "送信設定が未完了です。管理者にご連絡ください。";
+    }
+    if (errorCode === "invalid_request") {
+      return "入力内容を確認してください。";
+    }
+    return "送信に失敗しました。時間をおいて再度お試しください。";
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
@@ -32,15 +42,23 @@ export function ContactPanel({ contactEmail }: ContactPanelProps) {
       });
 
       if (!response.ok) {
-        throw new Error("送信失敗");
+        let errorCode = "send_failed";
+        try {
+          const payload = (await response.json()) as { error?: string };
+          errorCode = payload.error ?? errorCode;
+        } catch {
+          // Ignore parse errors and use the fallback message.
+        }
+        throw new Error(errorCode);
       }
 
       setStatusText("送信しました。ご連絡ありがとうございます。");
       setName("");
       setEmail("");
       setMessage("");
-    } catch {
-      setStatusText("送信に失敗しました。時間をおいて再度お試しください。");
+    } catch (error) {
+      const errorCode = error instanceof Error ? error.message : "send_failed";
+      setStatusText(getErrorMessage(errorCode));
     } finally {
       setIsSubmitting(false);
     }

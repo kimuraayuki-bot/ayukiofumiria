@@ -18,6 +18,30 @@ npm run dev
 
 Open `http://localhost:3000`.
 
+## Contact Mail Settings
+
+The contact form sends mail via Muumuu Mail by default.
+
+- SMTP host: `smtp.muumuu-mail.com`
+- SMTP port: `587` (STARTTLS)
+- SMTP user: `orbit@ayukiofumiria.com`
+- To address: `orbit@ayukiofumiria.com`
+
+Set at least this environment variable before sending mail:
+
+```bash
+SMTP_PASS=your_mail_password
+```
+
+Optional overrides:
+
+```bash
+SMTP_HOST=smtp.muumuu-mail.com
+SMTP_PORT=587
+SMTP_USER=orbit@ayukiofumiria.com
+CONTACT_TO_EMAIL=orbit@ayukiofumiria.com
+```
+
 ## Project Structure
 
 - `src/data/portfolio.ts`: single source of truth for profile, links, sections, gallery, contact
