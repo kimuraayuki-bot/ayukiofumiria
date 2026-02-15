@@ -81,6 +81,10 @@ h3 {
   display: none;
 }
 
+.smooth-x-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;

@@ -89,7 +89,7 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
           <p className="mb-2 text-[11px] tracking-[0.18em] text-[var(--muted)]">NEWS / MEDIA</p>
           <div
             ref={mediaScrollerRef}
-            className="no-scrollbar flex gap-3 overflow-x-auto pb-1 touch-pan-y"
+            className="no-scrollbar smooth-x-scroll flex gap-3 overflow-x-auto overscroll-x-contain pb-1 touch-pan-x"
           >
             {loopedMediaLinks.map((link, index) => (
               <a
