@@ -67,9 +67,9 @@ export const metadata: Metadata = {
     images: ["/images/ogp-space.svg"],
   },
   icons: {
-    icon: "/fabicon.png",
-    shortcut: "/fabicon.png",
-    apple: "/fabicon.png",
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
 
