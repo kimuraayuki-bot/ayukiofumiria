@@ -1,10 +1,10 @@
-import type { PortfolioData } from "@/types/portfolio";
+﻿import type { PortfolioData } from "@/types/portfolio";
 
 export const portfolioData: PortfolioData = {
   profile: {
     name: "Ayuki of Umiria",
     handle: "@ayukiofumiria",
-    roleJa: "Engineering / Education / Music",
+    roleJa: "Engineering / Education / Creative",
     missionJa: "技術と創作を横断し、事業を形にするエンジニア。",
     currentStatus: ["2026年度 似鳥国際奨学財団 IT人材奨学生"],
     academyUrl: "https://umiria-academy.com",
@@ -17,12 +17,6 @@ export const portfolioData: PortfolioData = {
       url: "https://www.youtube.com/channel/UCJv7tvwyDMEOIujeu2_yDuQ",
       type: "social",
       priority: 2,
-    },
-    {
-      label: "Facebook",
-      url: "https://www.facebook.com/share/p/1asL3s6c4A/?mibextid=wwXIfr",
-      type: "social",
-      priority: 3,
     },
     {
       label: "運営サイト：ウミリア学院",
