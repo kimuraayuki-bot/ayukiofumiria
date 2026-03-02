@@ -56,15 +56,23 @@ export const metadata: Metadata = {
     url: "https://ayukiofumiria.vercel.app/",
     siteName: "Ayuki of Umiria",
     locale: "ja_JP",
-    images: ["/images/ogp-space.svg"],
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Ayuki of Umiria portfolio",
+      },
+    ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Ayuki of Umiria | ポートフォリオ",
     description: "工学・ロボティクス・教育・音楽の活動をまとめた Ayuki of Umiria のポートフォリオ。",
+    site: "@ayukiofumiria",
     creator: "@ayukiofumiria",
-    images: ["/images/ogp-space.svg"],
+    images: ["/twitter-image"],
   },
   icons: {
     icon: "/favicon.png",
