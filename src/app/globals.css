@@ -85,6 +85,101 @@ h3 {
   -webkit-overflow-scrolling: touch;
 }
 
+.blog-prose {
+  color: var(--text);
+}
+
+.blog-prose > :first-child {
+  margin-top: 0;
+}
+
+.blog-prose > :last-child {
+  margin-bottom: 0;
+}
+
+.blog-prose h2,
+.blog-prose h3,
+.blog-prose h4 {
+  margin-top: 2.25rem;
+  color: #fff;
+  line-height: 1.35;
+}
+
+.blog-prose h2 {
+  font-size: 1.5rem;
+}
+
+.blog-prose h3 {
+  font-size: 1.2rem;
+}
+
+.blog-prose p,
+.blog-prose ul,
+.blog-prose ol,
+.blog-prose blockquote,
+.blog-prose pre {
+  margin-top: 1rem;
+}
+
+.blog-prose p,
+.blog-prose li {
+  line-height: 1.9;
+}
+
+.blog-prose ul,
+.blog-prose ol {
+  padding-left: 1.4rem;
+}
+
+.blog-prose li + li {
+  margin-top: 0.4rem;
+}
+
+.blog-prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.blog-prose strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+.blog-prose code {
+  border: 1px solid var(--line-soft);
+  border-radius: 0.4rem;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.15rem 0.4rem;
+  font-size: 0.9em;
+}
+
+.blog-prose pre {
+  overflow-x: auto;
+  border: 1px solid var(--line-soft);
+  border-radius: 0.85rem;
+  background: rgba(2, 6, 23, 0.92);
+  padding: 1rem;
+}
+
+.blog-prose pre code {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.blog-prose blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  color: var(--muted);
+}
+
+.blog-prose hr {
+  margin-top: 2rem;
+  border: 0;
+  border-top: 1px solid var(--line-soft);
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;

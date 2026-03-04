@@ -3,12 +3,16 @@ import type { Section } from "@/types/portfolio";
 
 type SectionCardProps = {
   section: Section;
+  serialLabel?: string;
 };
 
-export function SectionCard({ section }: SectionCardProps) {
+export function SectionCard({ section, serialLabel }: SectionCardProps) {
   return (
     <DecoratedCard className="animate-fade-up">
       <section id={section.id}>
+        {serialLabel ? (
+          <p className="text-[11px] tracking-[0.24em] text-[var(--muted)]">{serialLabel}</p>
+        ) : null}
         <p className="text-[11px] tracking-[0.22em] text-[var(--accent)]">{section.accent}</p>
         <h2 className="mt-2 text-xl font-semibold text-white">{section.titleJa}</h2>
         <p className="mt-3 text-sm leading-7 text-[var(--text)]">{section.summaryJa}</p>

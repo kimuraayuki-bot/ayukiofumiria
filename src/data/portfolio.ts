@@ -144,7 +144,7 @@ export const portfolioData: PortfolioData = {
       accent: "Cosmos",
       titleJa: "Umiriaという名に込めた想い",
       summaryJa:
-        "『宇宙創造の一瞬をつくる』の献辞「宇宙を愛するミリアムへ」に着想を得た概念名。探究心と創作の原点を示す。",
+        "アミール・D・アクゼル著『宇宙創造の一瞬をつくる』の献辞「宇宙を愛するミリアムへ」に着想を得て生まれた造語。宇宙への愛と限りない探求のまなざしを、自身の創作・思索・技術の営みにおける世界観として再構築した概念名。",
       bodyJa: [
         "Umiria（ウミリア）は、アミール・D・アクゼル著『宇宙創造の一瞬をつくる』に登場する献辞「宇宙を愛するミリアムへ」に着想を得て生まれた造語である。",
         "「ミリアム（Miriam）」という名が内包する、宇宙への愛と限りない探求のまなざし。",
@@ -188,5 +188,5 @@ export const portfolioData: PortfolioData = {
     { id: "music-3", title: "Re:spell!!", videoId: "6_kUogZcP-E" },
   ],
   contactEmail: "orbit@ayukiofumiria.com",
-  updatedAt: "2026-02-14",
+  updatedAt: "2026-03-05",
 };

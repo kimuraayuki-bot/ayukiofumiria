@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import type { Profile } from "@/types/portfolio";
 
@@ -37,11 +38,14 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
         </ul>
       ) : null}
       <div className="mt-5 flex flex-wrap gap-3">
-        <a className="pill-link" href="#contact">
-          Contact
-        </a>
+        <Link className="pill-link" href="/blog">
+          Blog
+        </Link>
         <a className="pill-link" href="#works-gallery">
           Works
+        </a>
+        <a className="pill-link" href="#contact">
+          Contact
         </a>
         {profile.academyUrl ? (
           <a
