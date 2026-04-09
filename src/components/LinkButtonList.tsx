@@ -106,6 +106,7 @@ export function LinkButtonList({ socialLinks, mediaLinks }: LinkButtonListProps)
                       alt={`${link.label} preview`}
                       width={44}
                       height={44}
+                      unoptimized
                       className="h-11 w-11 rounded-md object-cover"
                     />
                   ) : (
