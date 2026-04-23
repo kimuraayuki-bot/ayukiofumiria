@@ -69,7 +69,15 @@ const normalizeFrontmatter = (data: MatterData, fileName: string): BlogPostFront
 };
 
 const readAllPosts = cache(async (): Promise<BlogPost[]> => {
-  const entries = await fs.readdir(BLOG_DIRECTORY, { withFileTypes: true });
+  const entries = await fs
+    .readdir(BLOG_DIRECTORY, { withFileTypes: true })
+    .catch((error: NodeJS.ErrnoException) => {
+      if (error.code === "ENOENT") {
+        return [];
+      }
+
+      throw error;
+    });
   const files = entries.filter((entry) => entry.isFile() && entry.name.endsWith(".mdx"));
 
   const posts = await Promise.all(
