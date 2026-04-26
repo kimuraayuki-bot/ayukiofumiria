@@ -48,6 +48,5 @@ export type PortfolioData = {
   sections: Section[];
   gallery: GalleryItem[];
   youtubeEmbeds: YoutubeEmbed[];
-  contactEmail: string;
   updatedAt: string;
 };

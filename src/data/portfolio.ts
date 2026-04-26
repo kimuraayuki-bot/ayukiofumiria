@@ -183,6 +183,5 @@ export const portfolioData: PortfolioData = {
     { id: "music-2", title: "追想の灯", videoId: "etiK0pOM7o8" },
     { id: "music-3", title: "Re:spell!!", videoId: "6_kUogZcP-E" },
   ],
-  contactEmail: "orbit@ayukiofumiria.com",
   updatedAt: "2026-03-05",
 };

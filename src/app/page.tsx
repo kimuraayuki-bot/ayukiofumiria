@@ -90,7 +90,7 @@ export default async function Home() {
         </section>
 
         <section className="mt-8" aria-label="Contact form">
-          <ContactPanel contactEmail={portfolioData.contactEmail} />
+          <ContactPanel />
         </section>
 
         <footer className="mt-10 border-t border-[var(--line-soft)] pt-6 text-xs text-[var(--muted)]">
