@@ -30,7 +30,6 @@ export const metadata: Metadata = {
     "Webアプリ開発",
     "教育",
     "GarageBand",
-    "ウミリア学院",
   ],
   alternates: {
     canonical: "/",

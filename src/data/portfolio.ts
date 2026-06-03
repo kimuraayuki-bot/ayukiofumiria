@@ -7,7 +7,6 @@ export const portfolioData: PortfolioData = {
     roleJa: "Engineering / Education / Creative",
     missionJa: "技術と創作を横断し、事業を形にするエンジニア。",
     currentStatus: ["2026年度 似鳥国際奨学財団 IT人材奨学生"],
-    academyUrl: "https://umiria-academy.com",
     avatarSrc: "/images/profile-icon.png",
   },
   socialLinks: [
@@ -17,12 +16,6 @@ export const portfolioData: PortfolioData = {
       url: "https://www.youtube.com/channel/UCJv7tvwyDMEOIujeu2_yDuQ",
       type: "social",
       priority: 2,
-    },
-    {
-      label: "運営サイト：ウミリア学院",
-      url: "https://umiria-academy.com",
-      type: "portfolio",
-      priority: 4,
     },
   ],
   mediaLinks: [
@@ -75,18 +68,19 @@ export const portfolioData: PortfolioData = {
       id: "education",
       accent: "Signal",
       titleJa: "Education",
-      summaryJa: "個人で電子工作・プログラミング教室を立ち上げ、教材開発やワークショップを運営。ロボット教育でビジネスコンテスト優勝。編入・院試対策サイト「ウミリア学院」を創設。",
+      summaryJa:
+        "個人で電子工作・プログラミング教室を立ち上げ、教材開発やワークショップを運営。ロボット教育でビジネスコンテスト優勝。",
       bodyJa: [
         "電子工作・プログラミング教室「電子ラボ」の立ち上げと運営。",
         "オリジナル電子工作教材の開発。",
         "電子工作・プログラミングのワークショップ開催。",
         "作曲体験イベント開催。",
         "ロボット教育をテーマにし、Startup Weekend、学内ビジネスコンテストにて優勝。",
-        "理学部物理学科への大学編入・大学院進学をサポートするサイト、「ウミリア学院」を創設。",
+        "大学編入や大学院進学に関する情報発信やサポートにも取り組む。",
         "現在、大学学部課程に在籍し、電子物理工学を専攻。量子化学研究室に所属。",
         "現在は素粒子実験分野に関心を広げ、学びを継続中。",
       ],
-      tags: ["Education", "Startup", "Physics", "Academy"],
+      tags: ["Education", "Startup", "Physics", "Mentoring"],
     },
     {
       id: "music",

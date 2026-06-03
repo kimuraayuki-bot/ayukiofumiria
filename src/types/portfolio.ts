@@ -6,7 +6,6 @@ export type Profile = {
   roleJa: string;
   missionJa: string;
   currentStatus?: string[];
-  academyUrl?: string;
   avatarSrc: string;
 };
 

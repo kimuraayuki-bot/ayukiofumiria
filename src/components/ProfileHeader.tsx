@@ -47,16 +47,6 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
         <a className="pill-link" href="#contact">
           Contact
         </a>
-        {profile.academyUrl ? (
-          <a
-            className="pill-link"
-            href={profile.academyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Umiria Academy
-          </a>
-        ) : null}
       </div>
     </header>
   );
