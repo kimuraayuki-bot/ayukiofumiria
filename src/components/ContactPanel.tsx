@@ -80,10 +80,10 @@ export function ContactPanel() {
   return (
     <DecoratedCard className="animate-fade-up">
       <section id="contact">
-        <p className="text-[11px] tracking-[0.22em] text-[var(--accent)]">CHANNEL</p>
-        <h2 className="mt-2 text-xl font-semibold text-white">Contact Form</h2>
+        <h2 className="text-xl font-semibold text-white">Contact Form</h2>
         <p className="mt-2 text-sm leading-7 text-[var(--text)]">
-          ご相談や制作のご依頼などがあれば、こちらのフォームからお送りください。
+          Web製作、システム開発、電子工作ワークショップ、楽曲制作などのご依頼・ご相談はこちらから。
+          小さな相談でもお気軽にご連絡ください。
         </p>
         <form onSubmit={handleSubmit} className="relative mt-4 grid gap-3">
           <div className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">

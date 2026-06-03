@@ -7,7 +7,7 @@ type DecoratedCardProps = {
 
 export function DecoratedCard({ children, className }: DecoratedCardProps) {
   return (
-    <div className={`card-shadow relative ${className ?? ""}`}>
+    <div className={`relative ${className ?? ""}`}>
       <div className="relative rounded-xl border border-[var(--line)] bg-[var(--card)] p-4 md:p-5">
         {children}
       </div>

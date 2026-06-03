@@ -45,7 +45,7 @@ export default async function Home() {
     <main className="relative min-h-screen overflow-x-clip pb-16">
       <div className="starfield pointer-events-none absolute inset-0" />
       <div className="mx-auto w-full max-w-3xl px-4 pb-16 pt-10 md:px-6 md:pt-14">
-        <ProfileHeader profile={portfolioData.profile} />
+        <ProfileHeader profile={portfolioData.profile} services={portfolioData.services} />
 
         <section aria-label="Social links" className="mt-8">
           <LinkButtonList socialLinks={portfolioData.socialLinks} mediaLinks={portfolioData.mediaLinks} />
@@ -59,17 +59,12 @@ export default async function Home() {
           <section aria-label="Core pillars" className="mt-8 animate-fade-up">
             <div className="rounded-xl border border-[var(--line-soft)] bg-[rgba(10,16,36,0.32)] p-4 md:p-5">
               <div className="border-b border-[var(--line-soft)] pb-4">
-                <p className="text-[11px] tracking-[0.22em] text-[var(--accent)]">CORE PILLARS</p>
-                <h2 className="mt-2 text-xl font-semibold text-white">Engineering / Education / Music</h2>
+                <h2 className="text-xl font-semibold text-white">Engineering / Education / Music</h2>
               </div>
 
               <div className="mt-5 space-y-4">
-                {corePillars.map((section, index) => (
-                  <SectionCard
-                    key={section.id}
-                    section={section}
-                    serialLabel={`${String(index + 1).padStart(2, "0")}`}
-                  />
+                {corePillars.map((section) => (
+                  <SectionCard key={section.id} section={section} />
                 ))}
               </div>
             </div>
@@ -96,7 +91,6 @@ export default async function Home() {
         <footer className="mt-10 border-t border-[var(--line-soft)] pt-6 text-xs text-[var(--muted)]">
           {footerConcept ? (
             <div className="mb-4 max-w-2xl">
-              <p className="tracking-[0.18em] text-[var(--accent)]">{footerConcept.accent}</p>
               <p className="mt-1 text-sm text-white">{footerConcept.titleJa}</p>
               <div className="mt-2 space-y-3 text-sm leading-6 text-[var(--muted)]">
                 {footerConcept.bodyJa.map((line) => (

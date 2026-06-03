@@ -9,6 +9,11 @@ export type Profile = {
   avatarSrc: string;
 };
 
+export type Service = {
+  title: string;
+  description: string;
+};
+
 export type ExternalLink = {
   label: string;
   url: string;
@@ -19,7 +24,6 @@ export type ExternalLink = {
 
 export type Section = {
   id: string;
-  accent: string;
   titleJa: string;
   summaryJa: string;
   bodyJa: string[];
@@ -42,6 +46,7 @@ export type YoutubeEmbed = {
 
 export type PortfolioData = {
   profile: Profile;
+  services: Service[];
   socialLinks: ExternalLink[];
   mediaLinks: ExternalLink[];
   sections: Section[];

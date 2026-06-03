@@ -9,6 +9,18 @@ export const portfolioData: PortfolioData = {
     currentStatus: ["2026年度 似鳥国際奨学財団 IT人材奨学生"],
     avatarSrc: "/images/profile-icon.png",
   },
+  services: [
+    {
+      title: "システム開発",
+      description:
+        "Webアプリ、シフト管理、在庫管理、勤怠管理など、現場の業務効率化に必要な小規模システムを開発します。ヒアリングを通して業務を整理し、改善提案から実装まで行います。",
+    },
+    {
+      title: "ワークショップ開催",
+      description:
+        "プログラミング、電子工作、作曲など、手を動かして学ぶ体験型ワークショップを開催します。",
+    },
+  ],
   socialLinks: [
     { label: "X (Twitter)", url: "https://twitter.com/ayukiofumiria", type: "social", priority: 1 },
     {
@@ -51,7 +63,6 @@ export const portfolioData: PortfolioData = {
   sections: [
     {
       id: "engineering",
-      accent: "Orbit",
       titleJa: "Engineering",
       summaryJa:
         "ロボカップジュニアのアジア大会2連覇・世界大会受賞、レスキューロボットコンテスト受賞、学会発表、アプリ・システム開発など、実機と理論を往復する技術実績。",
@@ -66,7 +77,6 @@ export const portfolioData: PortfolioData = {
     },
     {
       id: "education",
-      accent: "Signal",
       titleJa: "Education",
       summaryJa:
         "個人で電子工作・プログラミング教室を立ち上げ、教材開発やワークショップを運営。ロボット教育でビジネスコンテスト優勝。",
@@ -74,7 +84,6 @@ export const portfolioData: PortfolioData = {
         "電子工作・プログラミング教室「電子ラボ」の立ち上げと運営。",
         "オリジナル電子工作教材の開発。",
         "電子工作・プログラミングのワークショップ開催。",
-        "作曲体験イベント開催。",
         "ロボット教育をテーマにし、Startup Weekend、学内ビジネスコンテストにて優勝。",
         "大学編入や大学院進学に関する情報発信やサポートにも取り組む。",
         "現在、大学学部課程に在籍し、電子物理工学を専攻。量子化学研究室に所属。",
@@ -84,12 +93,12 @@ export const portfolioData: PortfolioData = {
     },
     {
       id: "music",
-      accent: "Spectrum",
       titleJa: "Music",
       summaryJa:
         "GarageBandを中心に作曲。自治体PR動画や企業TikTokへの採用実績があり、技術活動と表現活動を接続。",
       bodyJa: [
         "GarageBandによる作曲制作。",
+        "作曲ワークショップの実施。",
         "市PR動画・企業TikTokでの楽曲使用実績。",
         "軽音楽部ではキーボードを担当。",
       ],
@@ -97,7 +106,6 @@ export const portfolioData: PortfolioData = {
     },
     {
       id: "skills",
-      accent: "Vector",
       titleJa: "Skills / Certifications",
       summaryJa:
         "第三種電気主任技術者、第一種電気工事士などの関連資格を多数保有し、東大GCI修了の実績を持つ。Webアプリ・システム開発から電子工作、組込み開発まで一貫して実装できる技術基盤。",
@@ -131,7 +139,6 @@ export const portfolioData: PortfolioData = {
     },
     {
       id: "umiria",
-      accent: "Cosmos",
       titleJa: "Umiriaという名に込めた想い",
       summaryJa:
         "アミール・D・アクゼル著『宇宙創造の一瞬をつくる』の献辞「宇宙を愛するミリアムへ」に着想を得て生まれた造語。宇宙への愛と限りない探求のまなざしを、自身の創作・思索・技術の営みにおける世界観として再構築した概念名。",

@@ -1,12 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Profile } from "@/types/portfolio";
+import type { Profile, Service } from "@/types/portfolio";
 
 type ProfileHeaderProps = {
   profile: Profile;
+  services: Service[];
 };
 
-export function ProfileHeader({ profile }: ProfileHeaderProps) {
+export function ProfileHeader({ profile, services }: ProfileHeaderProps) {
   return (
     <header className="animate-fade-up">
       <div className="flex items-center gap-4">
@@ -37,6 +38,21 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
           ))}
         </ul>
       ) : null}
+      <div className="mt-7 border-y border-[var(--line-soft)]">
+        <h2 className="pt-5 text-lg font-semibold text-white">Available Work</h2>
+        <div className="mt-3 space-y-5">
+          {services.map((service) => (
+            <a
+              key={service.title}
+              href="#contact"
+              className="block py-1 transition hover:text-white"
+            >
+              <span className="block text-base font-semibold text-white">{service.title}</span>
+              <span className="mt-1 block text-sm leading-7 text-[var(--text)]">{service.description}</span>
+            </a>
+          ))}
+        </div>
+      </div>
       <div className="mt-5 flex flex-wrap gap-3">
         <Link className="pill-link" href="/blog">
           Blog

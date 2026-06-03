@@ -43,15 +43,6 @@ h3 {
   opacity: 0.48;
 }
 
-.card-shadow::before {
-  content: "";
-  position: absolute;
-  inset: 7px -7px -7px 7px;
-  border: 1px solid var(--line-soft);
-  border-radius: 0.75rem;
-  z-index: -1;
-}
-
 .pill-link {
   border: 1px solid var(--line);
   border-radius: 999px;
